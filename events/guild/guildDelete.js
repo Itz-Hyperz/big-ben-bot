@@ -6,11 +6,20 @@ module.exports = async (client, Hyperz, config, con, guild) =>{
         if(err) throw err;
     });
 
-    client.destroy()
-
-    setTimeout(() => {
-        client.login(config.main_config.token)
-    }, 3000);
+    var logger = await client.channels.cache.get('856221390549155850');
+	
+	const logemb = new Hyperz.MessageEmbed()
+	.setColor(`${config.main_config.colorhex}`)
+	.setTitle(`I have left a guild!`)
+	.setDescription(`**Name:** ${guild.name}\n**ID:** ${guild.id}`)
+	.setTimestamp()
+	.setFooter(`${config.main_config.copyright}`)
+	
+	try {
+		logger.send(logemb)
+	} catch(e) {
+		console.log(e)
+	}
 
     console.log(`I have left: ${guild.name}`)
 
