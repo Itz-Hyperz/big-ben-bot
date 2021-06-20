@@ -14,7 +14,7 @@ module.exports = (client, Hyperz, config, con) =>{
 	const disbot = new disbotapi(client.user.id, "E7hZNhCltUipVCuTwMn5SfMDLla3KypHrq4", false) // BOOLEAN IS FOR DEBUG MODE
     	setInterval(() => {
         	disbot.updateStats(client.guilds.cache.size)
-    	}, 300000)
+    	}, 302000)
 
         client.guilds.cache.forEach(async g => {
             await con.query(`SELECT * FROM guilds WHERE id='${g.id}'`, async (err, row) => {
