@@ -22,7 +22,7 @@ module.exports = async (client, Hyperz, config, con, guild) =>{
 	
 	const logemb = new Hyperz.MessageEmbed()
 	.setColor(`${config.main_config.colorhex}`)
-	.setTitle(`I have joined a new guild!`)
+	.setTitle(`I have joined a guild!`)
 	.setDescription(`**Name:** ${guild.name}\n**ID:** ${guild.id}`)
 	.setTimestamp()
 	.setFooter(`${config.main_config.copyright}`)
