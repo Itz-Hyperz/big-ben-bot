@@ -11,9 +11,10 @@ module.exports = async (client, Hyperz, config, con, guild) =>{
 	const logemb = new Hyperz.MessageEmbed()
 	.setColor(`${config.main_config.colorhex}`)
 	.setTitle(`I have left a guild!`)
-	.setDescription(`**Name:** ${guild.name}\n**ID:** ${guild.id}`)
+	.setDescription(`**Name:** ${guild.name}\n**ID:** ${guild.id}\n**Members:** ${guild.members.cache.size}`)
 	.setTimestamp()
 	.setFooter(`${config.main_config.copyright}`)
+	try { logemb.setThumbnail(`${guild.iconURL({dynamic: true})}`) } catch(e) {}
 	
 	try {
 		logger.send(logemb)
