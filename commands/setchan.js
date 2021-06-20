@@ -12,6 +12,13 @@ module.exports = {
             foundchannel = await client.channels.cache.get(message.mentions.channels.first().id)
         } else if(!isNaN(args[0])) {
             foundchannel = await client.channels.cache.get(args[0])
+            if(foundchannel == undefined) {
+                try {
+                    foundchannel = await client.channels.cache.find(channel => channel.name === args[0].join(" "))
+                } catch(e) {
+                    if(config.main_config.debugmode) return console.log(e);
+                }
+            }
         }
 
         if(foundchannel == undefined) {
