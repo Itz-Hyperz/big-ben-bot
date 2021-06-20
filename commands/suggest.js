@@ -40,9 +40,11 @@ module.exports = {
 
                         const embedfour = new Hyperz.MessageEmbed()
                         .setColor(`${config.main_config.colorhex}`)
+			.setTitle(`New Suggestion Recieved!`)
                         .setDescription(`**User:** ${message.author.tag} - (${message.author.id})\n**Guild:** ${message.guild.name} - (${message.guild.id})\n\n**Suggestion:** \n${answer}`)
                         .setTimestamp()
                         .setFooter(`${config.main_config.copyright}`)
+			try { embedfour.setThumbnail(`${message.author.avatarURL({ dynamic: true })}`) } catch(e) {}
 
                         try {
                             await logger.send(embedfour).catch(e => {});
