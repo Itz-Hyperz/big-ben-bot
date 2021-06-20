@@ -14,7 +14,8 @@ module.exports = {
             foundchannel = await client.channels.cache.get(args[0])
             if(foundchannel == undefined) {
                 try {
-                    foundchannel = await client.channels.cache.find(channel => channel.name === args[0].join(" "))
+                    let dechan = await client.channels.cache.find(channel => channel.name === args[0].join(" "))
+                    foundchannel = dechan.id
                 } catch(e) {
                     if(config.main_config.debugmode) return console.log(e);
                 }
