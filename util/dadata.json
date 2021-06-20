@@ -1,0 +1,10 @@
+{
+
+    "main": {
+        "name": "HypeBase",
+        "commands": "70",
+        "events": "12",
+        "support": "https://support.hyperz.dev/"
+    }
+
+}

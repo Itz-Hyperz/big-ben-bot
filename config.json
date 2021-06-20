@@ -1,0 +1,23 @@
+{
+    "main_config": {
+        "token": "some-token",
+        "prefix": "b!",
+        "copyright": "Made By Hyperz#0001",
+        "colorhex": "#0362fc",
+        "port": "8080",
+        "debugmode": false
+    },
+
+    "mysql": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "bigben"
+    },
+
+    "other_configuration": {
+        "serverinvite": "https://hyperz.dev/discord",
+        "staple_never_change": "01"
+    }
+
+}
