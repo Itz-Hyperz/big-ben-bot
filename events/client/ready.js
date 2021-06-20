@@ -45,15 +45,17 @@ module.exports = (client, Hyperz, config, con) =>{
             let datetime = moment().format('HH:mm A');
 
             if(datetime.includes(`:00`)) {
-                getDicked(client, fs, ms, con, bigdogstatus)
+                getDicked(client, moment, fs, ms, con, bigdogstatus)
             }
     
         };
 
-        async function getDicked(client, fs, ms, con, bigdogstatus) {
+        async function getDicked(client, moment, fs, ms, con, bigdogstatus) {
             
             await con.query(`SELECT * FROM guilds`, async (err, rows) => {
                 if(err) throw err;
+
+                let newdatetime = moment().format('HH:mm A');
 
                 for(let data of rows) {
                     if(data.chan != 'none') {
@@ -65,6 +67,20 @@ module.exports = (client, Hyperz, config, con) =>{
                                  bigdogstatus.leave();
                             });
                         }).catch(err => console.log(err));
+
+                        try {
+                            if(client.user.voice.channel && newdatetime.includes(`:5`)) {
+                                try {
+                                    setTimeout(() => {
+                                        bigdogstatus.leave();
+                                    }, 11000)
+                                } catch(e) {
+                                    if(config.main_config.debugmode) return console.log(e);
+                                }
+                            }
+                        } catch(e) {
+                            if(config.main_config.debugmode) return console.log(e);
+                        }
 
                     }
                 }
