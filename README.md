@@ -12,3 +12,7 @@ This a Discord bot that SUPPORTS MULTIPLE SERVERS! This is the base repository f
 - [@aaron5](https://www.tiktok.com/@aaronr5?lang=en) - *Original TikTok Idea.*
 - [@Chris](https://twitter.com/groddy12) - *Motivational Support.*
 - [@Hyperz](https://hyperz.dev/) - *Physical Programming.*
+
+# Tags
+
+Big Ben Bot, Big Ben, Big Benjamin, Benjamin, Big, TikTok, Discord, Bot
