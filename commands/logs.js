@@ -43,7 +43,7 @@ module.exports = {
             const pingEmbed = new Hyperz.MessageEmbed()
             .setColor(config["main_config"].colorhex)
             .setAuthor(`${message.author.tag}`, `${message.author.displayAvatarURL()}`, `${config["other_configuration"].serverinvite}`)
-            .setDescription(`The lgos channel for this guild has been updated to \`${foundchannel.name}\``)
+            .setDescription(`The logs channel for this guild has been updated to \`${foundchannel.name}\``)
             .setTimestamp()
             .setFooter(`${config.main_config.copyright}`)
             
