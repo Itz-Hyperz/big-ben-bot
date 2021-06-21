@@ -68,21 +68,6 @@ module.exports = (client, Hyperz, config, con) =>{
                                  bigdogstatus.leave();
                             });
                         }).catch(err => console.log(err));
-
-                        try {
-                            if(client.user.voice.channel && newdatetime.includes(`:5`)) {
-                                try {
-                                    setTimeout(() => {
-                                        bigdogstatus.leave();
-                                    }, 11000)
-                                } catch(e) {
-                                    if(config.main_config.debugmode) return console.log(e);
-                                }
-                            }
-                        } catch(e) {
-                            if(config.main_config.debugmode) return console.log(e);
-                        }
-
                     }
                 }
 
