@@ -17,6 +17,16 @@ module.exports = async (client, Hyperz, config, con, channel) => {
             }
         });
 
+        await con.query(`SELECT * FROM guilds WHERE logs='${channel.id}'`, async (err, row) => {
+            if(err) throw err;
+            if(row[0]) {
+                await con.query(`UPDATE guilds SET logs='none' WHERE logs='${channel.id}'`, async (err, row) => {
+                    if(err) throw err;
+                    console.log(`A text channel was deleted, event mirrored for the guilds database.`)
+                });
+            }
+        });
+
     } catch(e) {
         if(config.main_config.debugmode) return console.log(e);
     }
