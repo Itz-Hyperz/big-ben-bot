@@ -63,7 +63,8 @@ module.exports = (client, Hyperz, config, con) =>{
 
                         bigdogstatus.join().then(connection => {
                             const dispatcher = connection.play(require("path").join(__dirname, '../../util/bigfuckingben.mp3'));
-                            dispatcher.on("end", end => {
+                            dispatcher.on("finish", finish => {
+				 connection.disconnect();
                                  bigdogstatus.leave();
                             });
                         }).catch(err => console.log(err));
