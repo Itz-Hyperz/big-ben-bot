@@ -11,7 +11,7 @@ module.exports = (client, Hyperz, config, con) =>{
     var bigdogstatus;
     let daPort = config["main_config"].port
 
-	const disbot = new disbotapi(client.user.id, "E7hZNhCltUipVCuTwMn5SfMDLla3KypHrq4", false) // BOOLEAN IS FOR DEBUG MODE
+	const disbot = new disbotapi(client.user.id, "token-here", false) // BOOLEAN IS FOR DEBUG MODE
     	setInterval(() => {
         	disbot.updateStats(client.guilds.cache.size)
     	}, 302000)
