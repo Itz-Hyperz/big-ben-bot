@@ -6,7 +6,7 @@ module.exports = {
         const pingEmbed = new Hyperz.MessageEmbed()
         .setColor(config["main_config"].colorhex)
         .setAuthor(`${message.author.tag}`, `${message.author.displayAvatarURL()}`, `${config["other_configuration"].serverinvite}`)
-        .setDescription(`[@aaron5](https://www.tiktok.com/@aaronr5?lang=en) - *Original TikTok Idea.*\n[@Chris](https://twitter.com/groddy12) - *Motivational Support.*\n[@Hyperz](https://hyperz.dev/) - *Physical Programming.*`)
+        .setDescription(`[@aaron5](https://www.tiktok.com/@aaronr5?lang=en) - *Original TikTok Idea.*\n[@Chris](https://twitter.com/groddy12) - *Co-Owner.*\n[@Hyperz](https://hyperz.dev/) - *Physical Programming.*`)
         .setTimestamp()
         .setFooter(`${config["main_config"].copyright}`)
         
