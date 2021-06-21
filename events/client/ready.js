@@ -20,7 +20,7 @@ module.exports = (client, Hyperz, config, con) =>{
             await con.query(`SELECT * FROM guilds WHERE id='${g.id}'`, async (err, row) => {
                 if(err) throw err;
                 if(!row[0]) {
-                    await con.query(`INSERT INTO guilds (id, chan) VALUES ('${g.id}', 'none')`, async (err, row) => {
+                    await con.query(`INSERT INTO guilds (id, chan, logs) VALUES ('${g.id}', 'none', 'none')`, async (err, row) => {
                         if(err) throw err;
                     });
                 }
