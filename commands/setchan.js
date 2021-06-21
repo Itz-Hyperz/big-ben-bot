@@ -6,6 +6,11 @@ module.exports = {
 
         if (message.member.hasPermission('ADMINISTRATOR')) {
 
+        if(!args[0]) return message.channel.send(`ERROR: Please include a voice channel in your command.`).then(msg => {
+            msg.delete({ timeout: 12000 })
+            message.delete()
+        }).catch(e => {});
+            
         var foundchannel;
 
         if(message.mentions.channels.first()) {
