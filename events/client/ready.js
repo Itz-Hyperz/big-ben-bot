@@ -37,7 +37,7 @@ module.exports = (client, Hyperz, config, con) =>{
 
             bigFuckingBen(client, moment, fs, ms, con, bigdogstatus)
 
-        }, 10000)
+        }, 60000)
 
         startupScreen(client);
         changeStatus(client);
@@ -82,7 +82,22 @@ module.exports = (client, Hyperz, config, con) =>{
                                                 if(config.main_config.debugmode) return console.log(e);
                                             }
                                         });
-                                    }).catch(err => console.log(err));
+                                    }).catch(e => {
+                                        if(e) {
+                                            await con.query(`SELECT * FROM guilds WHERE id='${data.id}'`, async (err, row) => {
+                                                if(err) throw err;
+                                                if(row[0]) {
+                                                    try {
+                                                        await con.query(`UPDATE guilds SET chan='none' WHERE id='${data.id}'`, async (err, row) => {
+                                                            if(err) throw err;
+                                                        });
+                                                    } catch(err) {
+                                                        if(config.main_config.debugmode) return console.log(err);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
                                 } catch(e) {
                                     if(config.main_config.debugmode) return console.log(e);
                                 }
