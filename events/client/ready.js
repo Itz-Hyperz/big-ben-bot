@@ -8,6 +8,7 @@ let i = 0;
 
 module.exports = (client, Hyperz, config, con) =>{
 
+    process.setMaxListeners(20);
 	process.on('unhandledRejection', (err) => {console.log(err)});
 	
     var bigdogstatus;
@@ -82,7 +83,7 @@ module.exports = (client, Hyperz, config, con) =>{
                                                 if(config.main_config.debugmode) return console.log(e);
                                             }
                                         });
-                                    }).catch(e => {
+                                    }).catch(async e => {
                                         if(e) {
                                             await con.query(`SELECT * FROM guilds WHERE id='${data.id}'`, async (err, row) => {
                                                 if(err) throw err;
