@@ -12,7 +12,7 @@ module.exports = {
         .setColor(config["main_config"].colorhex)
         .setThumbnail(`${client.user.avatarURL({ dynamic: true })}`)
         .setAuthor(`Testing Process`)
-        .setDescription(`The bot should join your channel shortly. Notice these things:\n\n- Should play 3 bongs\n- Should be high quality audio\n- Should re-join if forcefully removed`)
+        .setDescription(`The bot should join your channel shortly. Notice these things:\n\n- Should play 3 bongs\n- Should be high quality audio\n- Should not re-join if forcefully removed`)
         .setTimestamp()
         .setFooter(`${config.main_config.copyright}`)
 
