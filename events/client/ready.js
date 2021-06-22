@@ -53,23 +53,33 @@ module.exports = (client, Hyperz, config, con) =>{
         };
 
         async function getDicked(client, moment, fs, ms, con, bigdogstatus) {
-            
+            try {
             await con.query(`SELECT * FROM guilds`, async (err, rows) => {
                 if(err) throw err;
 
-                let newdatetime = moment().format('HH:mm A');
-
                 for(let data of rows) {
                     if(data.chan != 'none') {
-                        bigdogstatus = await client.channels.cache.get(data.chan)
+                        try {
+                            bigdogstatus = await client.channels.cache.get(data.chan)
 
-                        bigdogstatus.join().then(connection => {
-                            const dispatcher = connection.play(require("path").join(__dirname, '../../util/bigfuckingben.mp3'));
-                            dispatcher.on("finish", finish => {
-				 connection.disconnect();
-                                 bigdogstatus.leave();
-                            });
-                        }).catch(err => console.log(err));
+                            try {
+                                await bigdogstatus.join().then(async connection => {
+                                    const dispatcher = await connection.play(require("path").join(__dirname, '../../util/bigfuckingben.mp3'));
+                                    dispatcher.on("finish", async finish => {
+                                        try {
+                                            await connection.disconnect();
+                                            await bigdogstatus.leave();
+                                        } catch(e) {
+                                            if(config.main_config.debugmode) return console.log(e);
+                                        }
+                                    });
+                                }).catch(err => console.log(err));
+                            } catch(e) {
+                                if(config.main_config.debugmode) return console.log(e);
+                            }
+                        } catch(e) {
+                            if(config.main_config.debugmode) return console.log(e);
+                        }
                     }
                 }
 
@@ -86,6 +96,10 @@ module.exports = (client, Hyperz, config, con) =>{
             setTimeout(() => {
                 changeStatus(client)
             }, 60000)
+
+        } catch(e) {
+            if(config.main_config.debugmode) return console.log(e);
+        }
     
         };
     
