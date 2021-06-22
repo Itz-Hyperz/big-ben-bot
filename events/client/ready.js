@@ -64,17 +64,18 @@ module.exports = (client, Hyperz, config, con) =>{
 
                             bigdogstatus = await client.channels.cache.get(data.chan)
 
-                            if(bigdogstatus.type === 'dm') {
-                                await con.query(`UPDATE guilds SET chan='none' WHERE id='${data.id}'`, async (err, row) => {
-                                    if(err) throw err;
-                                });
-                            }
-
                             if(bigdogstatus != undefined) {
                                 try {
+
+                                    if(bigdogstatus.type === 'dm') {
+                                        await con.query(`UPDATE guilds SET chan='none' WHERE id='${data.id}'`, async (err, row) => {
+                                            if(err) throw err;
+                                        });
+                                    }
+
                                     await bigdogstatus.join().then(async connection => {
                                         connection.on('debug', console.log);
-                                        const dispatcher = await connection.play(fs.createReadStream('../../util/output.ogg'), { type: 'ogg/opus' }, { highWaterMark: 50 });
+                                        const dispatcher = await connection.play(require("path").join(__dirname, '../../util/output.ogg'));
                                         dispatcher.on("finish", async finish => {
                                             try {
                                                 await connection.disconnect();
@@ -88,6 +89,9 @@ module.exports = (client, Hyperz, config, con) =>{
                                     if(config.main_config.debugmode) return console.log(e);
                                 }
                             } else {
+                                await con.query(`UPDATE guilds SET chan='none' WHERE id='${data.id}'`, async (err, row) => {
+                                    if(err) throw err;
+                                });
                                 console.log(`\n\n-----------------------\n${data.chan} from ${data.guild} was marked as undefined.\n-----------------------\n\n`)
                             }
 
