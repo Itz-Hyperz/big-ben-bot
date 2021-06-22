@@ -21,7 +21,14 @@ module.exports = {
                 if(foundchannel == undefined) {
                     try {
                         let somechannel = await client.channels.cache.find(channel => channel.name === args.join(" "))
-                        foundchannel = await client.channels.cache.get(somechannel.id)
+                        if(somechannel != undefined) {
+                            foundchannel = await client.channels.cache.get(somechannel.id)
+                        } else {
+                            return message.channel.send(`ERROR: That is not a valid channel.`).then(m => {
+                                m.delete({ timeout: 12000 })
+                                message.delete()
+                            }).catch(e => {});
+                        }
                     } catch(e) {
                         if(config.main_config.debugmode) return console.log(e);
                     }
