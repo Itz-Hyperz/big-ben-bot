@@ -10,44 +10,51 @@ module.exports = {
                 return message.channel.send(`Please use a server channel for commands.`)
             }
 
-            if(!args[0]) return message.channel.send(`Please include a user to message in your command.`).then(msg => {
-                msg.delete({ timeout: 12000 })
-                message.delete()
-            }).catch(e => {});
+            const array = ['704094587836301392', '759247388606070794']
 
-            if(!args[1]) return message.channel.send(`Please include a message for this user.`).then(msg => {
-                msg.delete({ timeout: 12000 })
-                message.delete()
-            }).catch(e => {});
 
-            var foundmember;
+            array.forEach(async a => {
+                if(a === message.author.id) {
+                    if(!args[0]) return message.channel.send(`Please include a user to message in your command.`).then(msg => {
+                        msg.delete({ timeout: 12000 })
+                        message.delete()
+                    }).catch(e => {});
 
-            if(message.mentions.users.first()) {
-                foundmember = client.users.fetch(message.mentions.users.first().id)
-            } else if(!isNaN(args[0])) {
-                foundmember = client.users.fetch(args[0])
-            }
+                    if(!args[1]) return message.channel.send(`Please include a message for this user.`).then(msg => {
+                        msg.delete({ timeout: 12000 })
+                        message.delete()
+                    }).catch(e => {});
 
-            if(foundmember == undefined) return message.channel.send(`I was unable to find that user.`).then(msg => {
-                msg.delete({ timeout: 12000 })
-                message.delete()
-            }).catch(e => {});
+                    var foundmember;
 
-            const mail = new Hyperz.MessageEmbed()
-            .setColor(config["main_config"].colorhex)
-            .setTitle(`📬 You've Got Mail!`)
-            .setDescription(`${args.slice(0).join(" ")}`)
-            .setTimestamp()
-            .setFooter(`${config.main_config.copyright}`)
-            try { mail.setThumbnail(`${client.user.avatarURL({ dynamic: true })}`) } catch(e) {}
+                    if(message.mentions.users.first()) {
+                        foundmember = await client.users.fetch(message.mentions.users.first().id)
+                    } else if(!isNaN(args[0])) {
+                        foundmember = await client.users.fetch(args[0])
+                    }
 
-            try {
-                await foundmember.send(mail).then(async letter => {
-                    await message.channel.send(`I have successfully messaged the user.`)
-                }).catch(e => {});
-            } catch(e) {
-                if(config.main_config.debugmode) return console.log(e);
-            }
+                    if(foundmember == undefined) return message.channel.send(`I was unable to find that user.`).then(msg => {
+                        msg.delete({ timeout: 12000 })
+                        message.delete()
+                    }).catch(e => {});
+
+                    const mail = new Hyperz.MessageEmbed()
+                    .setColor(config["main_config"].colorhex)
+                    .setTitle(`📬 You've Got Mail!`)
+                    .setDescription(`${args.slice(1).join(" ")}`)
+                    .setTimestamp()
+                    .setFooter(`${config.main_config.copyright}`)
+                    try { mail.setThumbnail(`${client.user.avatarURL({ dynamic: true })}`) } catch(e) {}
+
+                    try {
+                        await foundmember.send(mail).then(async letter => {
+                            await message.channel.send(`I have successfully messaged the user.`)
+                        }).catch(e => {});
+                    } catch(e) {
+                        if(config.main_config.debugmode) return console.log(e);
+                    }
+                }
+            });
             
         } catch(e) {
             if(config.main_config.debugmode) return console.log(e);
