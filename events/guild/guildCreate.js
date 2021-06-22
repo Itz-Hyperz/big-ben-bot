@@ -22,23 +22,6 @@ module.exports = async (client, Hyperz, config, con, guild) =>{
             }
         }
     });
-
-
-	var logger = await client.channels.cache.get('856221390549155850');
-	
-	const logemb = new Hyperz.MessageEmbed()
-	.setColor(`${config.main_config.colorhex}`)
-	.setTitle(`I have joined a guild!`)
-	.setDescription(`**Name:** ${guild.name}\n**ID:** ${guild.id}\n**Members:** ${guild.members.cache.size}`)
-	.setTimestamp()
-	.setFooter(`${config.main_config.copyright}`)
-	try { logemb.setThumbnail(`${guild.iconURL({dynamic: true})}`) } catch(e) {}
-	
-	try {
-		logger.send(logemb)
-	} catch(e) {
-		console.log(e)
-	}
 	
     console.log(`I have joined: ${guild.name}`)
 
