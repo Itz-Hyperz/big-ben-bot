@@ -60,23 +60,29 @@ module.exports = (client, Hyperz, config, con) =>{
                 for(let data of rows) {
                     if(data.chan != 'none') {
                         try {
+
                             bigdogstatus = await client.channels.cache.get(data.chan)
 
-                            try {
-                                await bigdogstatus.join().then(async connection => {
-                                    const dispatcher = await connection.play(require("path").join(__dirname, '../../util/bigfuckingben.mp3'));
-                                    dispatcher.on("finish", async finish => {
-                                        try {
-                                            await connection.disconnect();
-                                            await bigdogstatus.leave();
-                                        } catch(e) {
-                                            if(config.main_config.debugmode) return console.log(e);
-                                        }
-                                    });
-                                }).catch(err => console.log(err));
-                            } catch(e) {
-                                if(config.main_config.debugmode) return console.log(e);
+                            if(bigdogstatus != undefined) {
+                                try {
+                                    await bigdogstatus.join().then(async connection => {
+                                        const dispatcher = await connection.play(require("path").join(__dirname, '../../util/bigfuckingben.mp3'));
+                                        dispatcher.on("finish", async finish => {
+                                            try {
+                                                await connection.disconnect();
+                                                await bigdogstatus.leave();
+                                            } catch(e) {
+                                                if(config.main_config.debugmode) return console.log(e);
+                                            }
+                                        });
+                                    }).catch(err => console.log(err));
+                                } catch(e) {
+                                    if(config.main_config.debugmode) return console.log(e);
+                                }
+                            } else {
+                                console.log(`\n\n-----------------------\n${data.chan} from ${data.guild} was marked as undefined.\n-----------------------\n\n`)
                             }
+
                         } catch(e) {
                             if(config.main_config.debugmode) return console.log(e);
                         }
