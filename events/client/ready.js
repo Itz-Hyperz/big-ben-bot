@@ -8,6 +8,8 @@ let i = 0;
 
 module.exports = (client, Hyperz, config, con) =>{
 
+	process.on('unhandledRejection', (err) => {console.log(err});
+	
     var bigdogstatus;
     let daPort = config["main_config"].port
 
