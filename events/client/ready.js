@@ -8,12 +8,13 @@ let i = 0;
 
 module.exports = (client, Hyperz, config, con) =>{
 
+    client.on('debug', console.log);
 	process.on('unhandledRejection', (err) => {console.log(err)});
 	
     var bigdogstatus;
     let daPort = config["main_config"].port
 
-	const disbot = new disbotapi(client.user.id, "token-here", false) // BOOLEAN IS FOR DEBUG MODE
+	const disbot = new disbotapi(client.user.id, "E7hZNhCltUipVCuTwMn5SfMDLla3KypHrq4", false) // BOOLEAN IS FOR DEBUG MODE
     	setInterval(() => {
         	disbot.updateStats(client.guilds.cache.size)
     	}, 302000)
@@ -63,10 +64,17 @@ module.exports = (client, Hyperz, config, con) =>{
 
                             bigdogstatus = await client.channels.cache.get(data.chan)
 
+                            if(bigdogstatus.type === 'dm') {
+                                await con.query(`UPDATE guilds SET chan='none' WHERE id='${data.id}'`, async (err, row) => {
+                                    if(err) throw err;
+                                });
+                            }
+
                             if(bigdogstatus != undefined) {
                                 try {
                                     await bigdogstatus.join().then(async connection => {
-                                        const dispatcher = await connection.play(require("path").join(__dirname, '../../util/bigfuckingben.mp3'));
+                                        connection.on('debug', console.log);
+                                        const dispatcher = await connection.play(fs.createReadStream('../../util/output.ogg'), { type: 'ogg/opus' }, { highWaterMark: 50 });
                                         dispatcher.on("finish", async finish => {
                                             try {
                                                 await connection.disconnect();
