@@ -1,6 +1,6 @@
 const Hyperz = require('discord.js');
 const config = require('./config.json');
-const client = new Hyperz.Client();
+const client = new Hyperz.Client({ shardCount: 'auto' });
 const { createConnection } = require('mysql')
 const con = createConnection(config["mysql"]);
 
