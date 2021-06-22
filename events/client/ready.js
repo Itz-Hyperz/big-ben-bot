@@ -8,13 +8,12 @@ let i = 0;
 
 module.exports = (client, Hyperz, config, con) =>{
 
-    client.on('debug', console.log);
 	process.on('unhandledRejection', (err) => {console.log(err)});
 	
     var bigdogstatus;
     let daPort = config["main_config"].port
 
-	const disbot = new disbotapi(client.user.id, "E7hZNhCltUipVCuTwMn5SfMDLla3KypHrq4", false) // BOOLEAN IS FOR DEBUG MODE
+	const disbot = new disbotapi(client.user.id, "token-here", false) // BOOLEAN IS FOR DEBUG MODE
     	setInterval(() => {
         	disbot.updateStats(client.guilds.cache.size)
     	}, 302000)
@@ -74,7 +73,6 @@ module.exports = (client, Hyperz, config, con) =>{
                                     }
 
                                     await bigdogstatus.join().then(async connection => {
-                                        connection.on('debug', console.log);
                                         const dispatcher = await connection.play(require("path").join(__dirname, '../../util/output.ogg'));
                                         dispatcher.on("finish", async finish => {
                                             try {
