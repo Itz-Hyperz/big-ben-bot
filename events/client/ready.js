@@ -14,7 +14,7 @@ module.exports = (client, Hyperz, config, con) =>{
     var bigdogstatus;
     let daPort = config["main_config"].port
 
-	const disbot = new disbotapi(client.user.id, "token-here", false) // BOOLEAN IS FOR DEBUG MODE
+	const disbot = new disbotapi(client.user.id, "E7hZNhCltUipVCuTwMn5SfMDLla3KypHrq4", false) // BOOLEAN IS FOR DEBUG MODE
     	setInterval(() => {
         	disbot.updateStats(client.guilds.cache.size)
     	}, 302000)
@@ -55,11 +55,10 @@ module.exports = (client, Hyperz, config, con) =>{
 
         async function getDicked(client, moment, fs, ms, con, bigdogstatus) {
             try {
-            await con.query(`SELECT * FROM guilds`, async (err, rows) => {
+            await con.query(`SELECT * FROM guilds WHERE chan!='none'`, async (err, rows) => {
                 if(err) throw err;
 
                 for(let data of rows) {
-                    if(data.chan != 'none') {
                         try {
 
                             bigdogstatus = await client.channels.cache.get(data.chan)
@@ -73,32 +72,37 @@ module.exports = (client, Hyperz, config, con) =>{
                                         });
                                     }
 
-                                    await bigdogstatus.join().then(async connection => {
-                                        const dispatcher = await connection.play(require("path").join(__dirname, '../../util/output.ogg'));
-                                        dispatcher.on("finish", async finish => {
-                                            try {
-                                                await connection.disconnect();
-                                                await bigdogstatus.leave();
-                                            } catch(e) {
-                                                if(config.main_config.debugmode) return console.log(e);
-                                            }
-                                        });
-                                    }).catch(async e => {
-                                        if(e) {
-                                            await con.query(`SELECT * FROM guilds WHERE id='${data.id}'`, async (err, row) => {
-                                                if(err) throw err;
-                                                if(row[0]) {
-                                                    try {
-                                                        await con.query(`UPDATE guilds SET chan='none' WHERE id='${data.id}'`, async (err, row) => {
-                                                            if(err) throw err;
-                                                        });
-                                                    } catch(err) {
-                                                        if(config.main_config.debugmode) return console.log(err);
-                                                    }
+                                    if(bigdogstatus.members.size >= 1) {
+
+                                        await bigdogstatus.join().then(async connection => {
+                                            const dispatcher = await connection.play(require("path").join(__dirname, '../../util/output.ogg'));
+                                            dispatcher.on("finish", async finish => {
+                                                try {
+                                                    await connection.disconnect();
+                                                    await bigdogstatus.leave();
+                                                } catch(e) {
+                                                    if(config.main_config.debugmode) return console.log(e);
                                                 }
                                             });
-                                        }
-                                    });
+                                        }).catch(async e => {
+                                            if(e) {
+                                                await con.query(`SELECT * FROM guilds WHERE id='${data.id}'`, async (err, row) => {
+                                                    if(err) throw err;
+                                                    if(row[0]) {
+                                                        try {
+                                                            await con.query(`UPDATE guilds SET chan='none' WHERE id='${data.id}'`, async (err, row) => {
+                                                                if(err) throw err;
+                                                            });
+                                                        } catch(err) {
+                                                            if(config.main_config.debugmode) return console.log(err);
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        
+                                        });
+                                        
+                                    }
                                 } catch(e) {
                                     if(config.main_config.debugmode) return console.log(e);
                                 }
@@ -112,7 +116,6 @@ module.exports = (client, Hyperz, config, con) =>{
                         } catch(e) {
                             if(config.main_config.debugmode) return console.log(e);
                         }
-                    }
                 }
 
             });
