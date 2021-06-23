@@ -141,7 +141,7 @@ module.exports = (client, Hyperz, config, con) =>{
 
         async function connector(client, config, bigdogstatus, fs, ms, con, data) {
 
-            let list = ['../../util/audio/output1.ogg', '../../util/audio/output2.ogg', '../../util/audio/output3.ogg', '../../util/audio/output4.ogg', '../../util/audio/output5.ogg', '../../util/audio/output6.ogg', '../../util/audio/output7.ogg', '../../util/audio/output8.ogg', '../../util/audio/output9.ogg'];
+            let list = ['../../util/audio/output1.ogg', '../../util/audio/output2.ogg', '../../util/audio/output3.ogg', '../../util/audio/output4.ogg', '../../util/audio/output5.ogg', '../../util/audio/output6.ogg', '../../util/audio/output7.ogg', '../../util/audio/output8.ogg', '../../util/audio/output9.ogg', '../../util/audio/output10.ogg', '../../util/audio/output11.ogg', '../../util/audio/output12.ogg', '../../util/audio/output13.ogg', '../../util/audio/output14.ogg', '../../util/audio/output15.ogg', '../../util/audio/output16.ogg'];
             let audioFinder = list[Math.floor(list.length * Math.random())];
             
             // Join the voice channel
