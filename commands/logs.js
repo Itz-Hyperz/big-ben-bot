@@ -5,7 +5,7 @@ module.exports = {
     async execute(client, message, args, Hyperz, config, con){
 
         if(message.channel.type === 'dm') {
-            return message.channel.send(`Please use a server channel for commands.`)
+            return message.channel.send(`Please use a server channel for commands.`);
         }
 
         if (message.member.hasPermission('ADMINISTRATOR')) {
@@ -20,6 +20,10 @@ module.exports = {
                 if(foundchannel == undefined) {
                     try {
                         let somechannel = await client.channels.cache.find(channel => channel.name === args.join(" "))
+                        if(somechannel == undefined) return message.channel.send(`ERROR: That is not a valid channel.`).then(m => {
+                            m.delete({ timeout: 12000 })
+                            message.delete()
+                        }).catch(e => {});
                         foundchannel = await client.channels.cache.get(somechannel.id)
                     } catch(e) {
                         if(config.main_config.debugmode) return console.log(e);
