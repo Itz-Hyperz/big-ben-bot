@@ -10,7 +10,7 @@ This a Discord bot that SUPPORTS MULTIPLE SERVERS! This is the base repository f
 # Credits
 
 - [@aaron5](https://www.tiktok.com/@aaronr5?lang=en) - *Original TikTok Idea.*
-- [@Chris](https://twitter.com/groddy12) - *Motivational Support.*
+- [@Chris](https://twitter.com/groddy12) - *Management Team.*
 - [@Hyperz](https://hyperz.dev/) - *Head Developer.*
 - [@Fuel](https://fueldevelopment.net/) - *Added Sharding.*
 
