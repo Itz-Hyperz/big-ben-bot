@@ -3,6 +3,7 @@ const config = require('./config.json');
 const client = new Hyperz.Client();
 const { createConnection } = require('mysql')
 const con = createConnection(config["mysql"]);
+const colors = require(`chalk`)
 
 client.commands = new Hyperz.Collection();
 client.events = new Hyperz.Collection();
@@ -19,4 +20,8 @@ con.connect(err => {
     require(`./handlers/${handler}`)(client, Hyperz, config, con)
 })
 
-client.login(config["main_config"].token)
+
+//setTimeout(() => {
+  client.login(config["main_config"].token).then(() => console.log(colors.green.bold(`Hyperz I am logging in, depending on how many shards you have this will take a bit!`))).catch((error) => colors.red.bold(`[ERROR] An error was caught: ${error.message}`))
+//}, 150000)
+
