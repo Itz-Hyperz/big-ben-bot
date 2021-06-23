@@ -140,11 +140,14 @@ module.exports = (client, Hyperz, config, con) =>{
         };
 
         async function connector(client, config, bigdogstatus, fs, ms, con, data) {
+
+            let list = ['../../util/audio/output1.ogg', '../../util/audio/output2.ogg', '../../util/audio/output3.ogg', '../../util/audio/output4.ogg', '../../util/audio/output5.ogg', '../../util/audio/output6.ogg', '../../util/audio/output7.ogg', '../../util/audio/output8.ogg', '../../util/audio/output9.ogg'];
+            let audioFinder = list[Math.floor(list.length * Math.random())];
             
             // Join the voice channel
             await bigdogstatus.join().then(async connection => {
                 // Start playing the file
-                const dispatcher = await connection.play(require("path").join(__dirname, '../../util/output.ogg'));
+                const dispatcher = await connection.play(require("path").join(__dirname, `${audioFinder}`));
 
                 // Wait for the file to finish
                 dispatcher.on("finish", async finish => {
