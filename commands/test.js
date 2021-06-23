@@ -39,7 +39,7 @@ module.exports = {
                                             message.channel.send(pingEmbed).then(msg => msg.delete({ timeout: 12000 })).catch(e => {if(config["main_config"].debugmode) return console.log(e);});
 
                                             await bigdogstatus.join().then(async connection => {
-                                                const dispatcher = await connection.play(require("path").join(__dirname, '../util/output.ogg'));
+                                                const dispatcher = await connection.play(require("path").join(__dirname, '../util/audio/test.ogg'));
                                                 dispatcher.on("finish", async finish => {
                                                     try {
                                                         await connection.disconnect();
