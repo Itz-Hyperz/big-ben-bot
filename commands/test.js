@@ -17,6 +17,16 @@ module.exports = {
         .setFooter(`${config.main_config.copyright}`)
 
         try {
+
+            let founded = message.guild.members.cache.get(client.user.id)
+
+            if(founded.voice.channel) {
+                try {
+                    await founded.voice.channel.disconnect()
+                    await founded.voice.channel.leave()
+                } catch(e) {}
+            }
+
             await con.query(`SELECT * FROM guilds WHERE id='${message.guild.id}'`, async (err, rows) => {
                 if(err) throw err;
 
