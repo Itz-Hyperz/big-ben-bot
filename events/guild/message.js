@@ -3,6 +3,8 @@ const config = require('../../config.json');
 
 module.exports = (client, Hyperz, config, con, message) => {
     
+    if(message.author.bot) return;
+    
     if(message.channel.type === 'dm') {
         return message.channel.send(`You cannot use my DMs, please use a server channel.`).catch(e => {});
     }
