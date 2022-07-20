@@ -1,5 +1,8 @@
+const { Permissions } = require('discord.js');
 exports.run = async function(client, con, interaction, data) {
     let channel = await interaction.options.getChannel('channel');
+
+    if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({ content: 'You do not have permission to manage channels.', ephemeral: true });
 
     if(channel.type != "GUILD_VOICE") return interaction.reply({ content: "This is not a voice channel.", ephemeral: true });
     if(!channel.joinable) return interaction.reply({ content: "I can not join this channel.", ephemeral: true });
