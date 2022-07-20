@@ -8,7 +8,7 @@ This a Discord bot that SUPPORTS MULTIPLE SERVERS! This is the base repository f
 
 # Credits
 
-- [@aaron5](https://www.tiktok.com/@aaronr5?lang=en) - *Original TikTok Idea.*
+- [@aaron5](https://www.tiktok.com/@aaronr5/video/6974871505024863494) - *Original TikTok Idea.*
 - [@Hyperz](https://hyperz.dev/) - *Head Developer.*
 - [@Chris](https://twitter.com/groddy12) - *Management Team.*
 
