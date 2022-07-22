@@ -1,6 +1,6 @@
 const moment = require('moment-timezone');
 
-const timestart = "30"; // Minute marker for joining
+const timestart = "00"; // Minute marker for joining
 
 module.exports = async function(client, con) {
     let timeMinutes = await moment().format(client.config.date_format).split(':');
