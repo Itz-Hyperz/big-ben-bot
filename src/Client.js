@@ -63,16 +63,6 @@ const init = async function() {
                 setTimeout(function() {
                     console.log(`${chalk.yellowBright('[SQL Manager]')} MySQL Successfully Connected!`)
                 }, 4000);
-                con.on('enqueue', function () {
-                    if(client.config.debugmode) {
-                        console.log(`${chalk.yellowBright('[SQL Manager]')} Waiting for available connection slot`);
-                    }
-                });
-                con.on('release', function (connection) {
-                    if(client.config.debugmode) {
-                        console.log(`${chalk.yellowBright('[SQL Manager]')} Connection %d released`, connection.threadId);
-                    }
-                });
             } catch (e) {
                 client.utils.error(client, e)
                 return process.exit(1);
