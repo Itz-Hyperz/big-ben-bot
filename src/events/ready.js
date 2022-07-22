@@ -41,5 +41,9 @@ module.exports = async(client, con, ready) => {
             console.log(`No help name or additional info found for slash command: ${command}`);
         }
     };
+    setInterval(async () => {
+        let timezones = await axios.get('https://raw.githubusercontent.com/Itz-Hyperz/big-ben-bot/main/timezones.json');
+        client.timezones = timezones.data;
+    }, ms('1h'));
     console.log(`${chalk.green('[Invite Link]')} ${chalk.white(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands`)}`)
 };

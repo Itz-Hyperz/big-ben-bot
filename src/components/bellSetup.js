@@ -1,29 +1,16 @@
-const moment = require('moment');
-const { getVoiceConnection } = require('@discordjs/voice');
+const moment = require('moment-timezone');
 
-const timestart = "00"; // Minute marker for joining
-const timeend = "01"; // Minute marker for leaving
+const timestart = "30"; // Minute marker for joining
 
 module.exports = async function(client, con) {
-    let datetime = moment().format(client.config.date_format).split(':')[1];
-    if(datetime == timeend) {
-        await con.query(`SELECT * FROM guilds`, async function(err, guilds) {
-            if(err) throw err;
-            await guilds.forEach(async function(guild) {
-                if(guild.channel != "none") {
-                    let connection = await getVoiceConnection(guild.guildid);
-                    if(connection) {
-                        await connection.destroy();
-                    };
-                };
-            });
-        });
-        return;
-    };
-    if(datetime != timestart) return;
+    let timeMinutes = await moment().format(client.config.date_format).split(':');
+    let minutes = timeMinutes[1];
+    if(minutes != timestart) return;
     await con.query(`SELECT * FROM guilds`, async function(err, guilds) {
         if(err) throw err;
         await guilds.forEach(async function(guild) {
+            let format = await moment().tz(guild.timezone || client.config.defaultTimezone).format(client.config.date_format).split(':')[0]
+            let hours = Number(format);
             if(guild.channel != "none") {
                 let channel = await client.channels.cache.get(guild.channel);
                 if(!channel) {
@@ -33,7 +20,7 @@ module.exports = async function(client, con) {
                         await con.query(`UPDATE guilds SET channel="none" WHERE guildid="${guild.guildid}"`, async (err, row) => { if(err) throw err; });
                     } else {
                         if(channel.joinable && channel.members.size > 0) {
-                            require('./bellPlay.js')(channel);
+                            require('./bellPlay.js')(channel, hours);
                         };
                     };
                 };

@@ -3,7 +3,8 @@ USE bigbenbot;
 
 CREATE TABLE guilds (
 guildid varchar(255),
-channel varchar(255)
+channel varchar(255),
+timezone TEXT
 );
 
 -- Conversions

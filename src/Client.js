@@ -1,10 +1,11 @@
-const { Client, Collection } = require('discord.js');
+const { Client } = require('discord.js');
 const { readdirSync } = require('fs');
 const { join } = require('path');
 const mysql = require('mysql');
 const chalk = require('chalk');
 const express = require("express");
 const figlet = require('figlet');
+const axios = require('axios');
 
 let useSQL = true; // DO NOT CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING
 let con;
@@ -21,7 +22,7 @@ class HDClient extends Client {
             // user
             "`ping` - Check the bots latency.\n`help` - View the bots commands.\n`invite` - Get the bots invite link.\n`credits` - View the creators of the bot.\n",
             // admin
-            "`channel` - Change this guilds channel for the bot to join.",
+            "`setchannel` - Change this guilds channel for the bot to join.\n`settimezone` - Set your guilds current timezone.",
             // credits
             `**Creators:**\n[@Hyperz](https://discord.com/users/704094587836301392) - *Head project developer.*\n[@Chriis](https://discord.com/users/759247388606070794) - *Emotional support.*`
         ];
@@ -73,6 +74,10 @@ const init = async function() {
         app.listen(client.config.port)
 
         // Ready File Handling Slash Commands
+
+        // Timezone caching
+        let timezones = await axios.get('https://raw.githubusercontent.com/Itz-Hyperz/big-ben-bot/main/timezones.json');
+        client.timezones = timezones.data;
 
         // Event handler
         const events = readdirSync(join(__dirname, `./`, `events`));
