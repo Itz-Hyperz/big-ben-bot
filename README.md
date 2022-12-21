@@ -1,6 +1,8 @@
 # big-ben-bot
 This a Discord bot that SUPPORTS MULTIPLE SERVERS! This is the base repository for the Big Benjamin project that is out publicly today! Feel free to contribute if you wish :]
 
+[INVITE ME](https://discord.com/oauth2/authorize?client_id=999451301920374815&scope=bot&permissions=8)
+
 # Notes
 
 - The bot is currently ran on a Linux Ubuntu 20.04 VM from [Storm Server Hosting](https://stormserverhosting.com/).
