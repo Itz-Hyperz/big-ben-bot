@@ -1,0 +1,34 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Home - Big Benjamin</title>
+        <meta property="og:title" content="Home - Big Benjamin" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="#5865F2">
+        <meta name="description" content="🔔 Hello there, I'm Big Benjamin, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="🔔 Hello there, I'm Big Benjamin, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!" />
+        <meta name="keywords" content="<%= config.seoKeywords %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container bg-theme p-4 mb-5 maincontainer">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 mb-3 text-center mt-3">
+                    <img src="/assets/logo.png" class="mainwebsitelogo">
+                </div>
+                <div class="col-lg-6 text-start mb-3 mt-3">
+                    <h1 class="maincontainerhead">Big Benjamin</h1>
+                    <p>Hello there, I'm <b>Big Benjamin</b>, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!</p>
+                    <hr>
+                    <a class="btn btn-light" target="_blank" href="https://discord.com/oauth2/authorize?client_id=999451301920374815&permissions=8&scope=bot%20applications.commands"><i class="fa-solid fa-arrow-up-right-from-square"></i> Invite me!</a>
+                    <a class="btn btn-light" target="_blank" href="https://bosssoftware.net/discord"><i class="fa-brands fa-discord"></i> Discord</a>
+                    <a class="btn btn-light" target="_blank" href="https://github.com/Itz-Hyperz/big-ben-bot/tree/main"><i class="fa-brands fa-github"></i> Github</a>
+                </div>
+            </div>
+        </div>
+        <%- include('_footer') %>
+    </body>
+</html>

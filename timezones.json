@@ -1,0 +1,42 @@
+[
+    {
+        "label": "⏰ EST",
+        "description": "Eastern Standard Time.",
+        "value": "America/New_York"
+    },
+    {
+        "label": "🌎 CST",
+        "description": "Central Standard Time",
+        "value": "America/Resolute"
+    },
+    {
+        "label": "🌞 PDT",
+        "description": "Pacific Daylight Time.",
+        "value": "America/Los_Angeles"
+    },
+    {
+        "label": "💧 AST",
+        "description": "Atlantic Standard Time.",
+        "value": "America/Montserrat"
+    },
+    {
+        "label": "🗻 MST",
+        "description": "Mountain Standard Time.",
+        "value": "America/Yellowknife"
+    },
+    {
+        "label": "🦘 AEST",
+        "description": "Australian Eastern Standard Time.",
+        "value": "Australia/NSW"
+    },
+    {
+        "label": "🦘 AWST",
+        "description": "Australian Western Standard Time.",
+        "value": "Australia/West"
+    },
+    {
+        "label": "🦷 CET",
+        "description": "Central European Time.",
+        "value": "CET"
+    }
+]

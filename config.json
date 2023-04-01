@@ -1,0 +1,31 @@
+{
+
+  "token": "YOUR_BOT_TOKEN",
+  "themeColor": "#ebbd34",
+  "aboutServer": "🔔 Hello there, I'm **Big Benjamin**, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!",
+  "date_format": "hh:mm",
+  "seoKeywords": "hyperz, discord, bigbenbot, bigben, benjamin, clock, boss, bot",
+
+  "port": "3047",
+  "debugmode": true, 
+
+  "database": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "bigbenbot"
+  },
+
+  "commands": {
+    "ephemeral": false
+  },
+
+  "guildLogs": "",
+  "defaultTimezone": "America/New_York",
+  "presence": {
+    "name": "the time 👀🔔",
+    "type": "WATCHING",
+    "status": "idle"
+  }
+
+}
