@@ -1,1 +1,0 @@
-require('./src/Client.js').init();
