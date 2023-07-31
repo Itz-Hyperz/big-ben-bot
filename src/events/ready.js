@@ -2,6 +2,7 @@ const { readdirSync } = require('fs');
 const { join } = require('path');
 const chalk = require('chalk');
 const ms = require('ms');
+const axios = require('axios');
 module.exports = async(client, con, ready) => {
     setInterval(async function() {
         require('../components/bellSetup.js')(client, con)
