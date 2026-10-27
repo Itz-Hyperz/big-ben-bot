@@ -1,10 +1,12 @@
-const { readdirSync} = require('fs');
+const { readdirSync } = require('fs');
+const { ActionRowBuilder, StringSelectMenuBuilder, EmbedBuilder } = require('discord.js');
+
 exports.run = async function(client, con, interaction, data) {
     let cmd = interaction.options.getString('command');
     if(!cmd) {
-        let select = new client.discord.MessageActionRow()
+        let select = new ActionRowBuilder()
         .addComponents(
-            new client.discord.MessageSelectMenu()
+            new StringSelectMenuBuilder()
                 .setCustomId('helpPageSelect')
                 .setPlaceholder('Select a module...')
                 .addOptions([
@@ -25,23 +27,23 @@ exports.run = async function(client, con, interaction, data) {
                     }
                 ]),
         );
-        let embed = new client.discord.MessageEmbed()
+        let embed = new EmbedBuilder()
         .setColor(client.config.themeColor || '#FFFFFF')
         .setTitle(`${client.user.username} Help Menu`)
-        .setThumbnail(client.user.avatarURL({ dynamic: true }))
+        .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
         .setFooter({ text: `Made with ❤️ by Hyperz#0001` })
-        .setDescription(client.config.aboutServer || 'I\'m just here to remind you of the time :]' || '📜')
+        .setDescription(client.config.aboutServer || 'I\'m just here to remind you of the time :]')
         await interaction.reply({ embeds: [embed], components: [select], ephemeral: true });
     } else {
-        const commands = readdirSync(__dirname).filter(f => f.endsWith('.js')).catch(e => {});
+        const commands = readdirSync(__dirname).filter(f => f.endsWith('.js'));
         for (let file of commands) {
             let cinfo = require(`./${file}`);
             if (cmd.toLowerCase() !== cinfo.info.name) continue;
-            let embed = new client.discord.MessageEmbed()
+            let embed = new EmbedBuilder()
             .setColor(client.config.themeColor || '#FFFFFF')
             .setTitle('Command Info')
             .setDescription(`**Name:** \`${cinfo.info.name}\`\n**Description:** \`${cinfo.info.description}\`\n**Type:** \`slash\``)
-            .setThumbnail(interaction.user.avatarURL({ dynamic: true }))
+            .setThumbnail(interaction.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp()
             await interaction.reply({ embeds: [embed], ephemeral: true }).catch(e => {});
         }

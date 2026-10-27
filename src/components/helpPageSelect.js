@@ -1,7 +1,9 @@
+const { EmbedBuilder } = require('discord.js');
+
 module.exports = async function(client, con, interaction, data) {
     let pages = client.pages;
     let select = Number(interaction.values[0]);
-    let embed = new client.discord.MessageEmbed()
+    let embed = new EmbedBuilder()
     .setColor(client.config.themeColor || '#FFFFFF')
     .setTitle(`${client.user.username} Help Menu`)
     .setFooter({ text: `Made with ❤️ by Hyperz#0001` })

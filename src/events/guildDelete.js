@@ -1,7 +1,9 @@
+const { EmbedBuilder } = require('discord.js');
+
 module.exports = async function(client, con, guild) {
     await client.utils.guildRemove(client, con, guild.id);
     if(client.config.guildLogs == "") return;
-    let embed = new client.discord.MessageEmbed()
+    let embed = new EmbedBuilder()
     .setColor('#041014')
     .setTitle('📤 Guild Left!')
     .setDescription(`**○ Name:** ${guild.name}\n**○ Id:** \`${guild.id}\``)

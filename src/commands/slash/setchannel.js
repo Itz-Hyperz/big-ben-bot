@@ -1,16 +1,23 @@
-const { Permissions } = require('discord.js');
+const { PermissionFlagsBits, ChannelType } = require('discord.js');
+
 exports.run = async function(client, con, interaction, data) {
     let channel = await interaction.options.getChannel('channel');
 
-    if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({ content: 'You do not have permission to manage channels.', ephemeral: true });
+    if(!interaction.member.permissions.has(PermissionFlagsBits.ManageChannels)) {
+        return interaction.reply({ content: 'You do not have permission to manage channels.', ephemeral: true });
+    }
 
-    if(channel.type != "GUILD_VOICE") return interaction.reply({ content: "This is not a voice channel.", ephemeral: true });
-    if(!channel.joinable) return interaction.reply({ content: "I can not join this channel.", ephemeral: true });
+    if(channel.type !== ChannelType.GuildVoice && channel.type !== ChannelType.GuildStageVoice) {
+        return interaction.reply({ content: "This is not a voice channel.", ephemeral: true });
+    }
+    if(!channel.joinable) {
+        return interaction.reply({ content: "I can not join this channel.", ephemeral: true });
+    }
 
     await con.query(`UPDATE guilds SET channel="${channel.id}" WHERE guildid="${interaction.guild.id}"`, async (err, row) => {
         if(err) throw err;
     });
-    
+
     await interaction.reply({ content: "**Channel Updated!**", ephemeral: true }).catch(e => {});
 };
 

@@ -1,19 +1,22 @@
-const { Permissions } = require('discord.js');
+const { PermissionFlagsBits, ActionRowBuilder, StringSelectMenuBuilder, EmbedBuilder } = require('discord.js');
+
 exports.run = async function(client, con, interaction, data) {
-    if(!interaction.member.permissions.has(Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply({ content: 'You do not have permission to manage channels.', ephemeral: true });
-    
-    let select = new client.discord.MessageActionRow()
+    if(!interaction.member.permissions.has(PermissionFlagsBits.ManageChannels)) {
+        return interaction.reply({ content: 'You do not have permission to manage channels.', ephemeral: true });
+    }
+
+    let select = new ActionRowBuilder()
     .addComponents(
-        new client.discord.MessageSelectMenu()
+        new StringSelectMenuBuilder()
             .setCustomId('timezoneSelect')
             .setPlaceholder('Select a timezone...')
-            .addOptions(client.timezones),
+            .addOptions(client.timezones || []),
     );
 
-    let embed = new client.discord.MessageEmbed()
+    let embed = new EmbedBuilder()
     .setColor(client.config.themeColor || '#FFFFFF')
     .setTitle(`Select A Timezone!`)
-    .setThumbnail(client.user.avatarURL({ dynamic: true }))
+    .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
     .setFooter({ text: `Made with ❤️ by Hyperz#0001` })
     .setDescription(`Select a timezone below for the guild to use to reference hours of the day here!`)
 
@@ -22,5 +25,5 @@ exports.run = async function(client, con, interaction, data) {
 
 exports.info = {
     name: 'settimezone',
-    description: 'Change this guilds channel for the bot to join!'
+    description: 'Change this guilds timezone for the hourly chimes!'
 }

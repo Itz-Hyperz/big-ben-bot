@@ -1,34 +1,124 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Home - Big Benjamin</title>
-        <meta property="og:title" content="Home - Big Benjamin" />
-        <link rel="icon" href="/assets/logo.png">
-        <meta property="og:image" content="/assets/logo.png">
-        <meta name="theme-color" content="#FFAF01">
-        <meta name="description" content="🔔 Hello there, I'm Big Benjamin, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!" />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content="🔔 Hello there, I'm Big Benjamin, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!" />
-        <meta name="keywords" content="<%= config.seoKeywords %>" />
-    </head>
-    <body>
-        <%- include('_header') %>
-        <div class="container bg-theme p-4 mb-5 maincontainer">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 mb-3 text-center mt-3">
-                    <img src="/assets/logo.png" class="mainwebsitelogo">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home — Big Benjamin</title>
+    <meta name="description" content="🔔 Hello there, I'm Big Benjamin, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!" />
+    <meta name="theme-color" content="#c9a227">
+    <meta name="keywords" content="<%= typeof config !== 'undefined' && config.seoKeywords ? config.seoKeywords : 'discord bot, big ben, hourly chime, clock bot' %>" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Home — Big Benjamin" />
+    <meta property="og:description" content="🔔 Hello there, I'm Big Benjamin, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logo.png" />
+
+    <link rel="icon" href="/assets/logo.png">
+</head>
+<body>
+    <%- include('_header') %>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-glow" aria-hidden="true"></div>
+            <div class="container hero-grid">
+                <div class="hero-visual">
+                    <div class="logo-ring">
+                        <img src="/assets/logo.png" alt="Big Benjamin logo" class="hero-logo" width="220" height="220">
+                    </div>
+                    <div class="clock-face" aria-hidden="true">
+                        <div class="clock-hand hour"></div>
+                        <div class="clock-hand minute"></div>
+                        <div class="clock-center"></div>
+                    </div>
                 </div>
-                <div class="col-lg-6 text-start mb-3 mt-3">
-                    <h1 class="maincontainerhead">Big Benjamin</h1>
-                    <p>Hello there, I'm <b>Big Benjamin</b>, a bot that will notify you after every hour has passed and a new one begins! I'm here to help you keep track of the time!</p>
-                    <hr>
-                    <a class="btn btn-light" target="_blank" href="https://discord.com/oauth2/authorize?client_id=999451301920374815&permissions=8&scope=bot%20applications.commands"><i class="fa-solid fa-arrow-up-right-from-square"></i> Invite me!</a>
-                    <a class="btn btn-light" target="_blank" href="https://bosssoftware.net/discord"><i class="fa-brands fa-discord"></i> Discord</a>
-                    <a class="btn btn-light" target="_blank" href="https://github.com/Itz-Hyperz/big-ben-bot/tree/main"><i class="fa-brands fa-github"></i> Github</a>
+
+                <div class="hero-content">
+                    <p class="eyebrow">Discord Timekeeper</p>
+                    <h1>Big Benjamin</h1>
+                    <p class="lead">
+                        Hello there, I'm <strong>Big Benjamin</strong> — a bot that notifies your server
+                        every time a new hour begins. Perfect for keeping track of the time
+                        without watching the clock.
+                    </p>
+
+                    <div class="cta-row">
+                        <a class="btn btn-primary" target="_blank" rel="noopener"
+                           href="https://discord.com/oauth2/authorize?client_id=999451301920374815&permissions=8&scope=bot%20applications.commands">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            Invite me
+                        </a>
+                        <a class="btn btn-secondary" target="_blank" rel="noopener"
+                           href="https://boss.software/discord">
+                            <i class="fa-brands fa-discord"></i>
+                            Discord
+                        </a>
+                        <a class="btn btn-ghost" target="_blank" rel="noopener"
+                           href="https://github.com/Itz-Hyperz/big-ben-bot/tree/main">
+                            <i class="fa-brands fa-github"></i>
+                            GitHub
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <%- include('_footer') %>
-    </body>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why Big Benjamin?</h2>
+                    <p>Simple, reliable, and built for communities that care about the hour.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+                        <h3>Hourly Chimes</h3>
+                        <p>Get a clear notification every time a new hour begins so your server never loses track of time.</p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3>Multi-Server Ready</h3>
+                        <p>Designed to run across multiple Discord servers with independent settings for each community.</p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <h3>Easy Setup</h3>
+                        <p>Invite the bot, set your channel, and you’re done. No complicated configuration required.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom CTA -->
+        <section class="bottom-cta">
+            <div class="container">
+                <div class="cta-panel">
+                    <div>
+                        <h2>Ready for the next hour?</h2>
+                        <p>Add Big Benjamin to your server and let the chimes begin.</p>
+                    </div>
+                    <a class="btn btn-primary btn-lg" target="_blank" rel="noopener"
+                       href="https://discord.com/oauth2/authorize?client_id=999451301920374815&permissions=8&scope=bot%20applications.commands">
+                        <i class="fa-solid fa-plus"></i>
+                        Add to Discord
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('_footer') %>
+</body>
 </html>

@@ -5,10 +5,14 @@ module.exports = async function(client, con, interaction) {
         await con.query(`SELECT * FROM guilds WHERE guildid='${interaction?.guild?.id}'`, async (err, row) => {
             if(err) throw err;
             if(!row[0]) await client.utils.guildAdd(client, con, interaction.guild.id);
-            if (interaction.isCommand()) {
+            if (interaction.isChatInputCommand()) {
                 require(`../commands/slash/${c}.js`).run(client, con, interaction, row[0]);
-            } else {
-                require(`../components/${c}.js`)(client, con, interaction, row[0]);
+            } else if (interaction.isStringSelectMenu() || interaction.isButton()) {
+                try {
+                    require(`../components/${c}.js`)(client, con, interaction, row[0]);
+                } catch (e) {
+                    if(client.config.debugmode) console.log(e);
+                }
             };
         });
     } catch(e) {

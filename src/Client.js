@@ -1,4 +1,4 @@
-const { Client } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, ActivityType } = require('discord.js');
 const { readdirSync } = require('fs');
 const { join } = require('path');
 const mysql = require('mysql');
@@ -21,7 +21,7 @@ class HDClient extends Client {
             // user
             "`ping` - Check the bots latency.\n`help` - View the bots commands.\n`invite` - Get the bots invite link.\n`credits` - View the creators of the bot.\n",
             // admin
-            "`setchannel` - Change this guilds channel for the bot to join.\n`settimezone` - Set your guilds current timezone.",
+            "`setchannel` - Change this guilds channel for the bot to join.\n`settimezone` - Set your guilds current timezone.\n`testbell` - Manually trigger the bells (testing).",
             // credits
             `**Creators:**\n[@Hyperz](https://discord.com/users/704094587836301392) - *Head project developer.*\n[@Chriis](https://discord.com/users/759247388606070794) - *Emotional support.*`
         ];
@@ -29,22 +29,30 @@ class HDClient extends Client {
 };
 
 const client = new HDClient({
-    intents: ['GUILDS', 'GUILD_MESSAGES', "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "GUILD_MEMBERS", "GUILD_BANS", "GUILD_INTEGRATIONS", "GUILD_WEBHOOKS", "GUILD_INVITES", "GUILD_VOICE_STATES", "GUILD_PRESENCES", "GUILD_MESSAGE_TYPING", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING"],
-    partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'ROLE', "GUILD_MEMBER", "USER", "GUILD_INVITES", "MANAGE_GUILD"],
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildPresences,
+    ],
+    partials: [
+        Partials.Message,
+        Partials.Channel,
+        Partials.Reaction,
+        Partials.GuildMember,
+        Partials.User,
+    ],
     allowedMentions: { parse: ['users', 'roles', 'everyone'], repliedUser: true }
 });
 
-client.refreshButton = new client.discord.MessageActionRow().addComponents(
-    new client.discord.MessageButton()
-    .setLabel('Refresh')
-    .setStyle('SUCCESS')
-    .setCustomId('refresh')
-);
 global.__basedir = __dirname;
 
 setTimeout(function() {
     const version = Number(process.version.split('.')[0].replace('v', ''));
-    if (version < 16) return console.log(chalk.blue('\n\nPlease upgrade to Node v16 or higher\nPlease upgrade to Node v16 or higher\nPlease upgrade to Node v16 or higher\n\n'));
+    if (version < 18) return console.log(chalk.blue('\n\nPlease upgrade to Node v18 or higher\nPlease upgrade to Node v18 or higher\nPlease upgrade to Node v18 or higher\n\n'));
 }, 8000);
 
 const init = async function() {
@@ -69,11 +77,14 @@ const init = async function() {
             }
         }
 
-        // Ready File Handling Slash Commands
-
         // Timezone caching
-        let timezones = await axios.get('https://raw.githubusercontent.com/Itz-Hyperz/big-ben-bot/main/timezones.json');
-        client.timezones = timezones.data;
+        try {
+            let timezones = await axios.get('https://raw.githubusercontent.com/Itz-Hyperz/big-ben-bot/main/timezones.json');
+            client.timezones = timezones.data;
+        } catch (e) {
+            client.timezones = [];
+            console.log(chalk.red('[Timezone] Failed to fetch timezones.json – settimezone select menu may be empty'));
+        }
 
         // Event handler
         const events = readdirSync(join(__dirname, `./`, `events`));
@@ -84,21 +95,12 @@ const init = async function() {
             delete require.cache[require.resolve(`./events/${e}`)];
         });
 
-        setTimeout(function() {
-            // Extension Handler
-            const extensions = readdirSync(join(__dirname, `./`, `extensions`));
-            for(let ext of extensions) {
-                const extName = ext.split('.')[0];
-                console.log(`${chalk.magentaBright('[Extension Manager]')} ${extName} - Loaded`);
-                require(`./extensions/${ext}`)(client, con, app);
-            };
-        }, 3150)
     } catch(e) {
         console.log(e)
     }
 }
 
-process.on('unhandledRejection', function(err) { 
+process.on('unhandledRejection', function(err) {
     let ignore = [
         "].type: This field is required",
         "Unknown Message",

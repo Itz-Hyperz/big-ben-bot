@@ -1,4 +1,5 @@
 const moment = require('moment-timezone');
+const { ChannelType } = require('discord.js');
 
 const timestart = "00"; // Minute marker for joining
 
@@ -11,16 +12,22 @@ module.exports = async function(client, con) {
         await guilds.forEach(async function(guild) {
             let format = await moment().tz(guild.timezone || client.config.defaultTimezone).format(client.config.date_format).split(':')[0]
             let hours = Number(format);
+            // Convert 24h to 12h style rings (0 becomes 12)
+            if (hours === 0) hours = 12;
+            else if (hours > 12) hours = hours - 12;
+
             if(guild.channel != "none") {
                 let channel = await client.channels.cache.get(guild.channel);
                 if(!channel) {
                     await con.query(`UPDATE guilds SET channel="none" WHERE guildid="${guild.guildid}"`, async (err, row) => { if(err) throw err; });
                 } else {
-                    if(channel.type != "GUILD_VOICE") {
+                    if(channel.type !== ChannelType.GuildVoice && channel.type !== ChannelType.GuildStageVoice) {
                         await con.query(`UPDATE guilds SET channel="none" WHERE guildid="${guild.guildid}"`, async (err, row) => { if(err) throw err; });
                     } else {
-                        if(channel.joinable && channel.members.size > 0) {
-                            require('./bellPlay.js')(channel, hours);
+                        // joinable check + at least one non-bot member
+                        const humanMembers = channel.members.filter(m => !m.user.bot).size;
+                        if(channel.joinable && humanMembers > 0) {
+                            require('./bellPlay.js')(channel, hours, client.config.debugmode);
                         };
                     };
                 };
